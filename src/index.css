@@ -1,0 +1,5 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-primary-800: rgb(80, 05, 98);
+}
