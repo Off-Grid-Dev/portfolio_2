@@ -2,4 +2,9 @@
 
 @theme {
   --color-primary-800: rgb(80, 05, 98);
+
+  /* breakpoint maxwidths */
+  --spacing-desktop: 1200px;
+  --spacing-tablet: 800px;
+  --spacing-mobile: 320px;
 }

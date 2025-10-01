@@ -1,10 +1,13 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router";
 import Home from "./pages/Home";
+import ProjectsPage from "./pages/Projects";
+import ContextProvider from "./context/ContextProvider";
 
 const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="/projects" element={<ProjectsPage />} />
       <Route path="*" element={<Home />} />
     </Routes>
   );
@@ -13,13 +16,13 @@ const AppRoutes = () => {
 const App = () => {
   return (
     <Router basename="/portfolio">
-      {/* <ContextProvider> */}
-      {/* <Header /> */}
-      <div className="bg-primary-800 min-h-[90vh]">
-        <AppRoutes />
-      </div>
-      {/* <Footer /> */}
-      {/* </ContextProvider> */}
+      <ContextProvider>
+        {/* <Header /> */}
+        <div className="bg-primary-800 min-h-[90vh]">
+          <AppRoutes />
+        </div>
+        {/* <Footer /> */}
+      </ContextProvider>
     </Router>
   );
 };
