@@ -14,13 +14,7 @@ const Wrapper: FC<WrapperProps> = ({ children }) => {
       ? "max-w-tablet"
       : "max-w-mobile";
 
-  return (
-    <div
-      className={`${maxWidth} bg-amber-800 mx-auto outline-purple-300 flex flex-col px-2`}
-    >
-      {children}
-    </div>
-  );
+  return <div className={`${maxWidth} mx-auto px-2`}>{children}</div>;
 };
 
 export default Wrapper;
