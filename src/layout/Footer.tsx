@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <footer className="bg-primary-900">
       <Wrapper>
-        <div className="flex justify-between items-center pt-4 pb-1">
+        <div className="grid justify-center pt-4 pb-1">
           <Link to="/" className="text-text-light text-big flex items-center">
             skinny
             <span className="text-secondary-200 text-heading font-bold">K</span>
