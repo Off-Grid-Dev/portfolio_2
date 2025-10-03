@@ -1,7 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router";
+import ContextProvider from "./context/ContextProvider";
 import Home from "./pages/Home";
 import ProjectsPage from "./pages/Projects";
-import ContextProvider from "./context/ContextProvider";
+import Header from "./layout/Header";
+import Footer from "./layout/Footer";
 
 const AppRoutes = () => {
   return (
@@ -17,11 +19,9 @@ const App = () => {
   return (
     <Router basename="/portfolio">
       <ContextProvider>
-        {/* <Header /> */}
-        <div className="bg-primary-800 min-h-[90vh]">
-          <AppRoutes />
-        </div>
-        {/* <Footer /> */}
+        <Header />
+        <AppRoutes />
+        <Footer />
       </ContextProvider>
     </Router>
   );
