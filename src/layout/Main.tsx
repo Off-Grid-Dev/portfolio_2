@@ -6,7 +6,11 @@ type MainProps = {
 };
 
 const Main: FC<MainProps> = ({ children }) => {
-  return <Wrapper>{children}</Wrapper>;
+  return (
+    <div className="min-h-[75vh]">
+      <Wrapper>{children}</Wrapper>
+    </div>
+  );
 };
 
 export default Main;
