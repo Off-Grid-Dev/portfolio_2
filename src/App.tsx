@@ -2,8 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router";
 import ContextProvider from "./context/ContextProvider";
 import Home from "./pages/Home";
 import ProjectsPage from "./pages/Projects";
-import Header from "./layout/Header";
-import Footer from "./layout/Footer";
+import Layout from "./layout/Layout";
 
 const AppRoutes = () => {
   return (
@@ -19,9 +18,9 @@ const App = () => {
   return (
     <Router basename="/portfolio">
       <ContextProvider>
-        <Header />
-        <AppRoutes />
-        <Footer />
+        <Layout>
+          <AppRoutes />
+        </Layout>
       </ContextProvider>
     </Router>
   );
