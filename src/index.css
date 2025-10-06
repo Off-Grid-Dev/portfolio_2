@@ -46,3 +46,32 @@
   --spacing-tablet: 800px;
   --spacing-mobile: 320px;
 }
+
+@layer animations {
+  @keyframes dev-type {
+
+    20%,
+    80% {
+      background-position-x: center;
+    }
+
+    100% {
+      background-position-x: right;
+    }
+  }
+
+  .dev-type-animation {
+    animation: dev-type 5s ease-in-out forwards;
+  }
+}
+
+@layer custom-styles {
+  .shadow-box-inset {
+    background-color: var(--color-primary-800);
+    box-shadow:
+      inset 2px -3px 3px var(--color-primary-300),
+      inset -2px 4px 4px var(--color-primary-900),
+      2px 4px 4px var(--color-primary-900),
+      -2px 4px 4px var(--color-primary-900);
+  }
+}
