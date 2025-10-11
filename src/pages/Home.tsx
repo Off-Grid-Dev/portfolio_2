@@ -16,7 +16,9 @@ const Home = () => {
               <a href="https://github.com/Off-Grid-Dev">github</a>
             </li>
             <li>
-              <a>linkedin</a>
+              <a href="https://www.linkedin.com/in/kenneth-jahnsen-collins-36307a201/">
+                linkedin
+              </a>
             </li>
           </ul>
         </div>
