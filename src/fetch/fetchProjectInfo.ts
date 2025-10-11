@@ -2,10 +2,14 @@ export type Project = {
   data: {
     id: string;
     name: string;
-    img: {
-      url: string;
-      alt: string;
+    owner: {
+      login: string;
+      avatar_url: string;
     };
+    created_at: string;
+    updated_at: string;
+    language: string;
+    visibility: string;
   };
 };
 
@@ -19,9 +23,8 @@ export const fetchRepoData = async (url: string): Promise<Project> => {
       );
     }
     const data = await response.json();
-    return data.data;
+    return data;
   } catch (err) {
-    console.error("Couldn't fetch the repo data!\n", err);
-    throw new Error(`Oh no!!! ${err}`);
+    throw new Error(`oh no! couldn't fetch the repo! ${err}`);
   }
 };

@@ -1,12 +1,14 @@
 import ProjectCard from "./ProjectCard";
 
 const ProjectGrid = () => {
-  const urlArray: string[] = [];
+  const urlArray: string[] = [
+    "https://api.github.com/repos/off-grid-dev/css_frameworks",
+  ];
 
   return (
     <div>
       {urlArray.map((url) => {
-        return <ProjectCard url={url} />;
+        return <ProjectCard key={url} url={url} />;
       })}
     </div>
   );
