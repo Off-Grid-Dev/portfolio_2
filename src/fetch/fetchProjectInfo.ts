@@ -1,16 +1,14 @@
 export type Project = {
-  data: {
-    id: string;
-    name: string;
-    owner: {
-      login: string;
-      avatar_url: string;
-    };
-    created_at: string;
-    updated_at: string;
-    language: string;
-    visibility: string;
+  id: string;
+  name: string;
+  owner: {
+    login: string;
+    avatar_url: string;
   };
+  created_at: string;
+  updated_at: string;
+  language: string;
+  visibility: string;
 };
 
 export const fetchRepoData = async (url: string): Promise<Project> => {
