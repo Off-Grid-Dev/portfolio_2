@@ -19,6 +19,14 @@ import jsArticle from "../assets/article-text-js.md?raw";
 import peArticle from "../assets/article-text-pe.md?raw";
 import spArticle from "../assets/article-text-sp.md?raw";
 
+// live site links for each project
+const liveLinkMap: Record<string, string> = {
+  css_frameworks: "https://fakebookcss.netlify.app/",
+  SemesterProject2: "https://semester2-project.netlify.app/",
+  javascript_frameworks: "https://golden-griffin-ad4714.netlify.app/",
+  project_exam2: "https://off-grid-dev.github.io/project_exam2/",
+};
+
 type ProjectPageProps = {
   data?: Project;
 };
@@ -56,6 +64,8 @@ const ProjectPage: FC<ProjectPageProps> = () => {
   const bgImage: string | null =
     (state.bgImage as string) ??
     (name ? imageMap[name as string] ?? null : null);
+  const liveLink: string | null =
+    state.liveLink ?? (name ? liveLinkMap[name] ?? null : null);
 
   // choose article text based on repo name
   const article = name ? articleMap[name] ?? "" : "";
@@ -81,14 +91,20 @@ const ProjectPage: FC<ProjectPageProps> = () => {
                 >
                   README
                 </a>
-                <a
-                  href={`https://github.com/${repo.owner.login}/${repo.name}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-2 py-2 px-3 border border-[var(--color-primary-600)] text-[var(--color-primary-700)] rounded-md hover:bg-[var(--color-primary-100)] transition"
-                >
-                  Live site
-                </a>
+                {liveLink ? (
+                  <a
+                    href={liveLink}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 py-2 px-3 border border-[var(--color-primary-600)] text-[var(--color-primary-700)] rounded-md hover:bg-[var(--color-primary-100)] transition"
+                  >
+                    Live site
+                  </a>
+                ) : (
+                  <span className="inline-flex items-center gap-2 py-2 px-3 border border-[var(--color-primary-200)] text-[var(--color-primary-400)] rounded-md opacity-60 cursor-not-allowed">
+                    Live site unavailable
+                  </span>
+                )}
               </div>
             </header>
 

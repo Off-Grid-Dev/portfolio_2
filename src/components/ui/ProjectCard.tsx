@@ -9,6 +9,7 @@ type ProjectCardProp = {
   url: string;
   bgImage: string;
   teaser?: string;
+  liveLink: string;
 };
 
 const repoPromises = new Map<string, Promise<Project>>();
@@ -20,7 +21,7 @@ function getRepoPromise(url: string) {
   return repoPromises.get(url)!;
 }
 
-const Project: FC<ProjectCardProp> = ({ url, bgImage, teaser }) => {
+const Project: FC<ProjectCardProp> = ({ url, bgImage, teaser, liveLink }) => {
   const repoResult: Project = use(getRepoPromise(url));
 
   const { id, name, owner, created_at, updated_at, language, visibility } =
@@ -81,7 +82,7 @@ const Project: FC<ProjectCardProp> = ({ url, bgImage, teaser }) => {
         </ul>
         <Link
           to={`/projects/${name}`}
-          state={{ repo: repoResult, bgImage }}
+          state={{ repo: repoResult, bgImage, liveLink }}
           className="inline-block py-2 px-4 bg-primary-600 text-text-light font-semibold cursor-pointer hover:bg-primary-700 rounded-md shadow mt-auto transition"
         >
           View article
@@ -91,11 +92,21 @@ const Project: FC<ProjectCardProp> = ({ url, bgImage, teaser }) => {
   );
 };
 
-const ProjectCard: FC<ProjectCardProp> = ({ url, bgImage, teaser }) => {
+const ProjectCard: FC<ProjectCardProp> = ({
+  url,
+  bgImage,
+  teaser,
+  liveLink,
+}) => {
   return (
     <ErrorBoundary fallback={<ErrorPage />}>
       <Suspense fallback={<ProjectCardSuspense />}>
-        <Project url={url} bgImage={bgImage} teaser={teaser} />
+        <Project
+          url={url}
+          bgImage={bgImage}
+          teaser={teaser}
+          liveLink={liveLink}
+        />
       </Suspense>
     </ErrorBoundary>
   );
