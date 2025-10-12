@@ -1,0 +1,314 @@
+import { type FC, Suspense, use } from "react";
+import { useParams, useLocation } from "react-router";
+import ReactMarkdown from "react-markdown";
+import type { Project } from "../fetch/fetchProjectInfo";
+import { fetchRepoData } from "../fetch/fetchProjectInfo";
+import { ErrorBoundary } from "react-error-boundary";
+import ErrorPage from "../pages/ErrorPage";
+import ProjectCardSuspense from "../components/ui/ProjectCard-Suspense";
+
+// screenshots (bundled assets)
+import cfScreenshot from "../assets/Screenshot-css-frameworks.png";
+import spScreenshot from "../assets/Screenshot-semester-project.png";
+import jsScreenshot from "../assets/Screenshot-js-frameworks.png";
+import peScreenshot from "../assets/Screenshot-project-exam.png";
+
+// import markdown articles as raw strings from src/assets
+import cssArticle from "../assets/article-text-css.md?raw";
+import jsArticle from "../assets/article-text-js.md?raw";
+import peArticle from "../assets/article-text-pe.md?raw";
+import spArticle from "../assets/article-text-sp.md?raw";
+
+type ProjectPageProps = {
+  data?: Project;
+};
+
+const articleMap: Record<string, string> = {
+  css_frameworks: cssArticle,
+  javascript_frameworks: jsArticle,
+  project_exam2: peArticle,
+  SemesterProject2: spArticle,
+};
+
+const imageMap: Record<string, string> = {
+  css_frameworks: cfScreenshot,
+  javascript_frameworks: jsScreenshot,
+  project_exam2: peScreenshot,
+  SemesterProject2: spScreenshot,
+};
+
+// Suspense-compatible repo promise cache (same pattern used in ProjectCard)
+const repoPromises = new Map<string, Promise<Project>>();
+function getRepoPromise(url: string) {
+  if (!repoPromises.has(url)) {
+    repoPromises.set(url, fetchRepoData(url));
+  }
+  return repoPromises.get(url)!;
+}
+
+const ProjectPage: FC<ProjectPageProps> = () => {
+  const { name } = useParams();
+  const location = useLocation();
+  const state = (location.state as any) ?? {};
+
+  // Consume repo data passed from ProjectCard via Link state when available.
+  const repo: Project | null = (state.repo as Project) ?? null;
+  const bgImage: string | null =
+    (state.bgImage as string) ??
+    (name ? imageMap[name as string] ?? null : null);
+
+  // choose article text based on repo name
+  const article = name ? articleMap[name] ?? "" : "";
+
+  // If repo data is provided via location.state, render immediately.
+  if (repo) {
+    return (
+      <main className="max-w-5xl mx-auto p-6">
+        <div className="grid gap-8 md:grid-cols-3 items-start">
+          <div className="md:col-span-2">
+            <header className="mb-6">
+              <h1 className="text-4xl font-extrabold tracking-tight mb-2 text-primary-900">
+                {repo.name}
+              </h1>
+              <p className="text-sm text-gray-600">{`Owned by ${repo.owner.login}`}</p>
+
+              <div className="mt-4 flex gap-3">
+                <a
+                  href={`https://github.com/${repo.owner.login}/${repo.name}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 py-2 px-3 bg-primary-600 text-white rounded-md shadow-sm hover:bg-primary-700"
+                >
+                  README
+                </a>
+                <a
+                  href={`https://github.com/${repo.owner.login}/${repo.name}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 py-2 px-3 border border-primary-600 text-primary-700 rounded-md hover:bg-primary-50"
+                >
+                  Live site
+                </a>
+              </div>
+            </header>
+
+            <article className="prose max-w-none bg-white p-6 rounded-lg shadow-md text-primary-900">
+              <ReactMarkdown
+                components={{
+                  h1: ({ node, ...props }) => (
+                    <h1 className="text-3xl font-bold my-4" {...props} />
+                  ),
+                  h2: ({ node, ...props }) => (
+                    <h2 className="text-2xl font-semibold my-3" {...props} />
+                  ),
+                  p: (props: any) => (
+                    <p
+                      className="text-base leading-7 mb-4 text-gray-100"
+                      {...props}
+                    />
+                  ),
+                  a: (props: any) => (
+                    <a
+                      className="text-primary-300 underline"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      {...props}
+                    />
+                  ),
+                  img: (props: any) => (
+                    <img
+                      className="rounded-md w-full mb-4 object-cover"
+                      {...props}
+                    />
+                  ),
+                  ul: (props: any) => (
+                    <ul className="list-disc ml-6 mb-4" {...props} />
+                  ),
+                  code: (props: any) => {
+                    const { inline, children } = props;
+                    if (inline) {
+                      return (
+                        <code className="bg-gray-800 text-yellow-300 px-1 rounded">
+                          {children}
+                        </code>
+                      );
+                    }
+                    return (
+                      <pre className="bg-gray-900 text-sm rounded p-4 overflow-auto">
+                        <code>{children}</code>
+                      </pre>
+                    );
+                  },
+                }}
+              >
+                {article ? article : ""}
+              </ReactMarkdown>
+            </article>
+          </div>
+
+          <aside className="md:col-span-1">
+            <div className="mb-4">
+              {bgImage ? (
+                <img
+                  src={bgImage}
+                  alt={`${name} screenshot`}
+                  className="w-full rounded-lg shadow-md object-cover"
+                />
+              ) : (
+                <div className="rounded-lg bg-gray-100 p-6 text-center italic">
+                  No screenshot available
+                </div>
+              )}
+            </div>
+
+            <div className="bg-surface-700 p-4 rounded-md text-sm">
+              <div className="flex items-center gap-3 mb-3">
+                {repo.owner.avatar_url && (
+                  <img
+                    src={repo.owner.avatar_url}
+                    alt="owner avatar"
+                    className="w-12 h-12 rounded-full"
+                  />
+                )}
+                <div>
+                  <div className="font-semibold">{repo.owner.login}</div>
+                  <div className="text-xs text-muted-400">Repository owner</div>
+                </div>
+              </div>
+
+              <h3 className="font-semibold mb-2">Repo info</h3>
+              <dl className="grid grid-cols-2 gap-x-4 gap-y-2 text-xs">
+                <div>
+                  <dt className="text-muted-400">Created</dt>
+                  <dd>{new Date(repo.created_at).toDateString()}</dd>
+                </div>
+                <div>
+                  <dt className="text-muted-400">Updated</dt>
+                  <dd>{new Date(repo.updated_at).toDateString()}</dd>
+                </div>
+                <div>
+                  <dt className="text-muted-400">Language</dt>
+                  <dd>{repo.language ?? "-"}</dd>
+                </div>
+                <div>
+                  <dt className="text-muted-400">Visibility</dt>
+                  <dd>{repo.visibility ?? "-"}</dd>
+                </div>
+              </dl>
+            </div>
+          </aside>
+        </div>
+      </main>
+    );
+  }
+
+  // Suspended fallback rendering: fetch repo via promise and suspend using use().
+  const SuspendedContent: FC<{
+    repoName: string | undefined;
+    initialBg?: string | null;
+  }> = ({ repoName }) => {
+    const url = `https://api.github.com/repos/off-grid-dev/${repoName}`;
+    const repoResult: Project = use(getRepoPromise(url));
+    const usedBg = state.bgImage ?? imageMap[repoName as string] ?? null;
+
+    return (
+      <main className="max-w-5xl mx-auto p-6">
+        <div className="grid gap-8 md:grid-cols-3 items-start">
+          <div className="md:col-span-2">
+            <header className="mb-6">
+              <h1 className="text-4xl font-extrabold tracking-tight mb-2 text-primary-900">
+                {repoResult.name}
+              </h1>
+              <p className="text-sm text-gray-600">{`Owned by ${repoResult.owner.login}`}</p>
+
+              <div className="mt-4 flex gap-3">
+                <a
+                  href={`https://github.com/${repoResult.owner.login}/${repoResult.name}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 py-2 px-3 bg-primary-600 text-white rounded-md shadow-sm hover:bg-primary-700"
+                >
+                  README
+                </a>
+                <a
+                  href={`https://github.com/${repoResult.owner.login}/${repoResult.name}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 py-2 px-3 border border-primary-600 text-primary-700 rounded-md hover:bg-primary-50"
+                >
+                  Live site
+                </a>
+              </div>
+            </header>
+
+            <article className="prose max-w-none bg-white p-6 rounded-lg shadow-md text-primary-900">
+              <ReactMarkdown>{article ? article : ""}</ReactMarkdown>
+            </article>
+          </div>
+
+          <aside className="md:col-span-1">
+            <div className="mb-4">
+              {usedBg ? (
+                <img
+                  src={usedBg}
+                  alt={`${repoResult.name} screenshot`}
+                  className="w-full rounded-lg shadow-md object-cover"
+                />
+              ) : (
+                <div className="rounded-lg bg-surface-700 p-6 text-center italic">
+                  No screenshot available
+                </div>
+              )}
+            </div>
+
+            <div className="bg-surface-700 p-4 rounded-md text-sm">
+              <div className="flex items-center gap-3 mb-3">
+                {repoResult.owner.avatar_url && (
+                  <img
+                    src={repoResult.owner.avatar_url}
+                    alt="owner avatar"
+                    className="w-12 h-12 rounded-full"
+                  />
+                )}
+                <div>
+                  <div className="font-semibold">{repoResult.owner.login}</div>
+                  <div className="text-xs text-muted-400">Repository owner</div>
+                </div>
+              </div>
+
+              <h3 className="font-semibold mb-2">Repo info</h3>
+              <dl className="grid grid-cols-2 gap-x-4 gap-y-2 text-xs">
+                <div>
+                  <dt className="text-muted-400">Created</dt>
+                  <dd>{new Date(repoResult.created_at).toDateString()}</dd>
+                </div>
+                <div>
+                  <dt className="text-muted-400">Updated</dt>
+                  <dd>{new Date(repoResult.updated_at).toDateString()}</dd>
+                </div>
+                <div>
+                  <dt className="text-muted-400">Language</dt>
+                  <dd>{repoResult.language ?? "-"}</dd>
+                </div>
+                <div>
+                  <dt className="text-muted-400">Visibility</dt>
+                  <dd>{repoResult.visibility ?? "-"}</dd>
+                </div>
+              </dl>
+            </div>
+          </aside>
+        </div>
+      </main>
+    );
+  };
+
+  return (
+    <ErrorBoundary fallback={<ErrorPage />}>
+      <Suspense fallback={<ProjectCardSuspense />}>
+        <SuspendedContent repoName={name} />
+      </Suspense>
+    </ErrorBoundary>
+  );
+};
+
+export default ProjectPage;

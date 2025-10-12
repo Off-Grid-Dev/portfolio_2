@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router";
 import ContextProvider from "./context/ContextProvider";
 import Home from "./pages/Home";
 import ProjectsPage from "./pages/Projects";
+import Project from "./pages/Project";
 import Layout from "./layout/Layout";
 
 const AppRoutes = () => {
@@ -9,6 +10,7 @@ const AppRoutes = () => {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/projects" element={<ProjectsPage />} />
+      <Route path="/projects/:name" element={<Project />} />
       <Route path="*" element={<Home />} />
     </Routes>
   );

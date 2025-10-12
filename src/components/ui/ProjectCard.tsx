@@ -3,6 +3,7 @@ import { fetchRepoData, type Project } from "../../fetch/fetchProjectInfo";
 import { ErrorBoundary } from "react-error-boundary";
 import ErrorPage from "../../pages/ErrorPage";
 import ProjectCardSuspense from "./ProjectCard-Suspense";
+import { Link } from "react-router";
 
 type ProjectCardProp = {
   url: string;
@@ -62,9 +63,13 @@ const Project: FC<ProjectCardProp> = ({ url, bgImage }) => {
             {visibility}
           </li>
         </ul>
-        <button className="mt-auto py-2 px-3 bg-secondary-300 text-text-regular cursor-pointer hover:bg-secondary-100 rounded-sm">
+        <Link
+          to={`/projects/${name}`}
+          state={{ repo: repoResult, bgImage }}
+          className="mt-auto inline-block py-2 px-3 bg-secondary-300 text-text-regular cursor-pointer hover:bg-secondary-100 rounded-sm"
+        >
           view article
-        </button>
+        </Link>
       </div>
     </div>
   );
