@@ -9,19 +9,19 @@ const ProjectGrid = () => {
 
   const urlArray: string[][] = [
     [
-      `${baseUrl}css_frameworks`,
+      `${baseUrl}css_frameworks/tree/tree/improvements-for-portfolio`,
       cfScreenshot,
       "Reusable component-driven layouts and a polished footer redesign.",
       "https://fakebookcss.netlify.app/",
     ],
     [
-      `${baseUrl}SemesterProject2`,
+      `${baseUrl}SemesterProject2/tree/improvements-for-portfolio`,
       spScreenshot,
       "A social platform for dog lovers — profiles, details and responsive UI.",
       "https://semester2-project.netlify.app/",
     ],
     [
-      `${baseUrl}javascript_frameworks`,
+      `${baseUrl}javascript_frameworks/tree/improvements-for-portfolio`,
       jsScreenshot,
       "E-commerce demo with search, cart persistence and modern UI patterns.",
       "https://golden-griffin-ad4714.netlify.app/",
