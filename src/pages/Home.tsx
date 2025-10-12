@@ -1,5 +1,5 @@
 import DecoHeading from "../components/ui/DecoHeading";
-import profilePicture from "/profile_pic.png";
+import profilePicture from "../assets/profile_pic.png";
 
 const Home = () => {
   return (

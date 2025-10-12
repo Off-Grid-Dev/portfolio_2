@@ -1,8 +1,8 @@
 import ProjectCard from "./ProjectCard";
-import cfScreenshot from "/Screenshot-css-frameworks.png";
-import spScreenshot from "/Screenshot-semester-project.png";
-import jsScreenshot from "/Screenshot-js-frameworks.png";
-import peScreenshot from "/Screenshot-project-exam.png";
+import cfScreenshot from "../../assets/Screenshot-css-frameworks.png";
+import spScreenshot from "../../assets/Screenshot-semester-project.png";
+import jsScreenshot from "../../assets/Screenshot-js-frameworks.png";
+import peScreenshot from "../../assets/Screenshot-project-exam.png";
 
 const ProjectGrid = () => {
   const baseUrl = "https://api.github.com/repos/off-grid-dev/";
