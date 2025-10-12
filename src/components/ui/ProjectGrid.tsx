@@ -8,16 +8,39 @@ const ProjectGrid = () => {
   const baseUrl = "https://api.github.com/repos/off-grid-dev/";
 
   const urlArray: string[][] = [
-    [`${baseUrl}css_frameworks`, cfScreenshot],
-    [`${baseUrl}SemesterProject2`, spScreenshot],
-    [`${baseUrl}javascript_frameworks`, jsScreenshot],
-    [`${baseUrl}project_exam2`, peScreenshot],
+    [
+      `${baseUrl}css_frameworks`,
+      cfScreenshot,
+      "Reusable component-driven layouts and a polished footer redesign.",
+    ],
+    [
+      `${baseUrl}SemesterProject2`,
+      spScreenshot,
+      "A social platform for dog lovers — profiles, details and responsive UI.",
+    ],
+    [
+      `${baseUrl}javascript_frameworks`,
+      jsScreenshot,
+      "E-commerce demo with search, cart persistence and modern UI patterns.",
+    ],
+    [
+      `${baseUrl}project_exam2`,
+      peScreenshot,
+      "A TypeScript-heavy project showcasing architecture and performance.",
+    ],
   ];
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 pb-16">
       {urlArray.map((item, idx) => {
-        return <ProjectCard key={idx} url={item[0]} bgImage={item[1]} />;
+        return (
+          <ProjectCard
+            key={idx}
+            url={item[0]}
+            bgImage={item[1]}
+            teaser={item[2]}
+          />
+        );
       })}
     </div>
   );

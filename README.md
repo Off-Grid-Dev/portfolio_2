@@ -1,75 +1,75 @@
-# React + TypeScript + Vite
+# skinnyK — Front-end Developer Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This repository contains the Portfolio 2 site for the Noroff front-end course. It is a multipage React + TypeScript site built with Vite and Tailwind CSS that showcases three projects: CSS Frameworks, JavaScript Frameworks (Greedy Little Pigs), and Semester Project 2.
 
-Currently, two official plugins are available:
+Owner / contact
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Developer handle: `skinnyK`
+- GitHub profile: https://github.com/Off-Grid-Dev
+- Email (from site): skinnykdev@gmail.com
 
-## React Compiler
+Live site
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+- The portfolio is deployed and available at the URL you provided when deploying (replace below when publishing):
 
-Note: This will impact Vite dev & build performances.
+  Live: (your deployed URL here)
 
-## Expanding the ESLint configuration
+What this repo contains
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- A React + TypeScript application scaffolded with Vite.
+- `src/` — application source. Key locations:
+  - `src/pages/` — pages including `Home`, `Projects`, and `Project`.
+  - `src/components/ui/` — UI components such as `ProjectCard`, `ProjectGrid` and the Suspense placeholder.
+  - `src/assets/` — bundled screenshots and project article markdown files (`article-text-*.md`).
+  - `src/fetch/fetchProjectInfo.ts` — helper that fetches repo data from GitHub.
+- `public/` — (optional) static, un-bundled files served at site root.
+- `assignment_instructions.md` — the course assignment requirements. Use this to confirm grading requirements.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Key features / implementation notes
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- Routing: app uses React Router routes for `/`, `/projects` and `/projects/:name`.
+- Project cards: `ProjectCard` pre-fetches repo metadata (using Suspense + `use()`) and passes repo data and the screenshot to the Project page via `Link` state for instant rendering.
+- Deep-link fallback: `Project` page supports deep links (direct `/projects/:name`) by suspending on a fetch promise (same cache pattern as cards) and shows the same Suspense fallback UI.
+- Articles: project articles are stored as markdown under `src/assets` and imported with Vite's `?raw` suffix. They render with `react-markdown` and are styled using Tailwind classes.
+- Styling: Tailwind v4 utility classes are used; CSS variables in `src/index.css` provide the color system (no `tailwind.config.js` needed with v4 mapping).
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Running locally
+
+1. Install dependencies
+
+```powershell
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. Start dev server
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```powershell
+npm run dev
 ```
+
+3. Build for production
+
+```powershell
+npm run build
+```
+
+4. Preview the production build
+
+```powershell
+npm run preview
+```
+
+Deployment notes (Netlify / Vercel / similar)
+
+- Build command: `npm run build`
+- Publish directory: `dist`
+- If you host at a subpath, set `base` in `vite.config.ts` to your subpath before building.
+
+Accessibility and contrast
+
+- Article cards were changed to a light card (white background + dark text) to ensure high contrast against the page background (#f5e7fe). Color variables live in `src/index.css` — if you need to tweak color tokens to meet WCAG contrast thresholds, change the `--color-...` variables there.
+
+Where assets live and why
+
+- Markdown and screenshots are bundled in `src/assets` so they can be imported and included in the production build (hashed URLs) — this helps with cache-busting and ensures assets are available in `dist`.
+- Alternative: `public/` serves files from site root with fixed filenames. Use `public/` when you need predictable, non-hashed URLs (e.g., externally maintained content or user-uploaded files).

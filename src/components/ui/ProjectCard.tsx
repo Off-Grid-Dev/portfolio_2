@@ -8,6 +8,7 @@ import { Link } from "react-router";
 type ProjectCardProp = {
   url: string;
   bgImage: string;
+  teaser?: string;
 };
 
 const repoPromises = new Map<string, Promise<Project>>();
@@ -19,7 +20,7 @@ function getRepoPromise(url: string) {
   return repoPromises.get(url)!;
 }
 
-const Project: FC<ProjectCardProp> = ({ url, bgImage }) => {
+const Project: FC<ProjectCardProp> = ({ url, bgImage, teaser }) => {
   const repoResult: Project = use(getRepoPromise(url));
 
   const { id, name, owner, created_at, updated_at, language, visibility } =
@@ -35,6 +36,7 @@ const Project: FC<ProjectCardProp> = ({ url, bgImage }) => {
     >
       <img src={bgImage} alt="screenshot of project" className="-z-10 mb-2" />
       <h2 className="text-2xl">{name}</h2>
+      {teaser && <p className="text-sm mt-2 text-text-light/90">{teaser}</p>}
       <img
         className="rounded-full block absolute top-1 right-1 max-w-[120px]"
         src={owner.avatar_url}
