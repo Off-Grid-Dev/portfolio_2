@@ -32,56 +32,70 @@ const Project: FC<ProjectCardProp> = ({ url, bgImage, teaser }) => {
   return (
     <div
       id={id}
-      className="relative shadow-box-inset rounded-md p-6 text-text-light isolate"
+      className="relative shadow-lg rounded-xl p-6 bg-primary-100 text-color-primary-900 isolate border border-primary-200"
     >
-      <img src={bgImage} alt="screenshot of project" className="-z-10 mb-2" />
-      <h2 className="text-2xl">{name}</h2>
-      {teaser && <p className="text-sm mt-2 text-text-light/90">{teaser}</p>}
       <img
-        className="rounded-full block absolute top-1 right-1 max-w-[120px]"
+        src={bgImage}
+        alt="screenshot of project"
+        className="-z-10 mb-3 rounded-lg border border-primary-200 object-cover w-full h-32 md:h-40"
+      />
+      <h2 className="text-2xl font-bold mb-1 text-primary-900">{name}</h2>
+      {teaser && (
+        <div className="mb-4">
+          <blockquote className="text-base italic px-4 py-2 rounded-lg bg-secondary-100 border-l-4 border-primary-300 text-primary-700 shadow-sm">
+            {teaser}
+          </blockquote>
+        </div>
+      )}
+      <img
+        className="rounded-full block absolute top-3 right-3 w-12 h-12 border-2 border-primary-200 shadow"
         src={owner.avatar_url}
         alt="picture of me"
         title="repo author"
       />
-      <div className="md:flex md:justify-between">
-        <ul>
+      <div className="md:flex md:justify-between mt-4">
+        <ul className="text-sm space-y-1">
           <li>
-            <h3 className="text-xl">stats</h3>
+            <h3 className="text-lg font-semibold text-primary-700 mb-1">
+              Stats
+            </h3>
           </li>
           <li>
-            <span>created: </span>
-            {createdDate}
+            <span className="font-medium text-primary-700">Created: </span>
+            <span className="text-primary-900">{createdDate}</span>
           </li>
           <li>
-            <span>last updated: </span>
-            {updateDate}
+            <span className="font-medium text-primary-700">Last updated: </span>
+            <span className="text-primary-900">{updateDate}</span>
           </li>
           <li>
-            <span>primary language: </span>
-            {language}
+            <span className="font-medium text-primary-700">
+              Primary language:{" "}
+            </span>
+            <span className="text-primary-900">{language}</span>
           </li>
           <li>
-            <span>visibility: </span>
-            {visibility}
+            <span className="font-medium text-primary-700">Visibility: </span>
+            <span className="text-primary-900">{visibility}</span>
           </li>
         </ul>
         <Link
           to={`/projects/${name}`}
           state={{ repo: repoResult, bgImage }}
-          className="mt-auto inline-block py-2 px-3 bg-secondary-300 text-text-regular cursor-pointer hover:bg-secondary-100 rounded-sm"
+          className="inline-block py-2 px-4 bg-primary-600 text-text-light font-semibold cursor-pointer hover:bg-primary-700 rounded-md shadow mt-auto transition"
         >
-          view article
+          View article
         </Link>
       </div>
     </div>
   );
 };
 
-const ProjectCard: FC<ProjectCardProp> = ({ url, bgImage }) => {
+const ProjectCard: FC<ProjectCardProp> = ({ url, bgImage, teaser }) => {
   return (
     <ErrorBoundary fallback={<ErrorPage />}>
       <Suspense fallback={<ProjectCardSuspense />}>
-        <Project url={url} bgImage={bgImage} />
+        <Project url={url} bgImage={bgImage} teaser={teaser} />
       </Suspense>
     </ErrorBoundary>
   );

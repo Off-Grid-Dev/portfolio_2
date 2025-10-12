@@ -1,15 +1,3 @@
-# CSS Frameworks
-
-[🔗 Share/Copy Article Link](#) <!-- Replace # with your shareable URL -->
-
-![Screenshot of CSS Frameworks Footer](/Screenshot-css-frameworks.png)
-_Caption: Enhanced footer with branded logo and links._
-
-**Live Site:** [Open Project](https://github.com/Off-Grid-Dev/css_frameworks){:target="\_blank"}  
-**GitHub:** [README.md](https://github.com/Off-Grid-Dev/css_frameworks/blob/main/README.md){:target="\_blank"}
-
----
-
 ## Project Overview
 
 CSS Frameworks is a project exploring modern CSS techniques and component-based layouts. The focus is on reusability, theming, and design consistency using TypeScript and modular JavaScript.

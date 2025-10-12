@@ -1,15 +1,3 @@
-# Greedy Little Pigs – E-Commerce Store
-
-[🔗 Share/Copy Article Link](#) <!-- Replace # with your shareable URL -->
-
-![Screenshot of Greedy Little Pigs Store](/Screenshot-js-frameworks.png)
-_Caption: Product listing page of Greedy Little Pigs e-commerce site._
-
-**Live Site:** [Open Project](https://github.com/Off-Grid-Dev/javascript_frameworks){:target="\_blank"}  
-**GitHub:** [README.md](https://github.com/Off-Grid-Dev/javascript_frameworks/blob/main/README.md){:target="\_blank"}
-
----
-
 ## Project Overview
 
 Greedy Little Pigs is a modern e-commerce web app built with React and TypeScript. It features product browsing, real-time search and sorting, a persistent shopping cart, checkout flow, and a contact form with validation.

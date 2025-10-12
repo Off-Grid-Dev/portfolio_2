@@ -1,15 +1,3 @@
-# Project Exam 2
-
-[🔗 Share/Copy Article Link](#) <!-- Replace # with your shareable URL -->
-
-![Screenshot of Project Exam 2](/Screenshot-project-exam.png)
-_Caption: Main interface of Project Exam 2 web application._
-
-**Live Site:** [Open Project](https://github.com/Off-Grid-Dev/project_exam2){:target="\_blank"}  
-**GitHub:** [README.md](https://github.com/Off-Grid-Dev/project_exam2/blob/main/README.md){:target="\_blank"}
-
----
-
 ## Project Overview
 
 Project Exam 2 is a robust web application built primarily with TypeScript (97.9%), designed to showcase advanced front-end and architectural skills. The project demonstrates strong modularity, maintainable code, and responsive design, typical of a technical exam setting.

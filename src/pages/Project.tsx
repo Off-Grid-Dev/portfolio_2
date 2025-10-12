@@ -64,20 +64,20 @@ const ProjectPage: FC<ProjectPageProps> = () => {
   if (repo) {
     return (
       <main className="max-w-5xl mx-auto p-6">
-        <div className="grid gap-8 md:grid-cols-3 items-start">
+        <div className="grid gap-10 md:grid-cols-3 items-start">
           <div className="md:col-span-2">
-            <header className="mb-6">
-              <h1 className="text-4xl font-extrabold tracking-tight mb-2 text-primary-900">
+            <header className="mb-8 pb-4 border-b border-[var(--color-primary-200)]">
+              <h1 className="text-4xl font-extrabold tracking-tight mb-2 text-[var(--color-primary-900)]">
                 {repo.name}
               </h1>
-              <p className="text-sm text-gray-600">{`Owned by ${repo.owner.login}`}</p>
+              <p className="text-sm text-[var(--color-primary-700)]">{`Owned by ${repo.owner.login}`}</p>
 
               <div className="mt-4 flex gap-3">
                 <a
                   href={`https://github.com/${repo.owner.login}/${repo.name}`}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-2 py-2 px-3 bg-primary-600 text-white rounded-md shadow-sm hover:bg-primary-700"
+                  className="inline-flex items-center gap-2 py-2 px-3 bg-[var(--color-primary-600)] text-[var(--color-text-light)] rounded-md shadow hover:bg-[var(--color-primary-700)] transition"
                 >
                   README
                 </a>
@@ -85,14 +85,14 @@ const ProjectPage: FC<ProjectPageProps> = () => {
                   href={`https://github.com/${repo.owner.login}/${repo.name}`}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-2 py-2 px-3 border border-primary-600 text-primary-700 rounded-md hover:bg-primary-50"
+                  className="inline-flex items-center gap-2 py-2 px-3 border border-[var(--color-primary-600)] text-[var(--color-primary-700)] rounded-md hover:bg-[var(--color-primary-100)] transition"
                 >
                   Live site
                 </a>
               </div>
             </header>
 
-            <article className="prose max-w-none bg-white p-6 rounded-lg shadow-md text-primary-900">
+            <article className="prose max-w-none bg-[var(--color-primary-100)] p-6 rounded-xl shadow-lg text-[var(--color-primary-900)]">
               <ReactMarkdown
                 components={{
                   h1: ({ node, ...props }) => (
@@ -103,13 +103,13 @@ const ProjectPage: FC<ProjectPageProps> = () => {
                   ),
                   p: (props: any) => (
                     <p
-                      className="text-base leading-7 mb-4 text-gray-100"
+                      className="text-base leading-7 mb-4 text-[var(--color-primary-900)]"
                       {...props}
                     />
                   ),
                   a: (props: any) => (
                     <a
-                      className="text-primary-300 underline"
+                      className="text-[var(--color-primary-700)] underline hover:text-[var(--color-primary-900)] transition"
                       target="_blank"
                       rel="noopener noreferrer"
                       {...props}
@@ -117,24 +117,27 @@ const ProjectPage: FC<ProjectPageProps> = () => {
                   ),
                   img: (props: any) => (
                     <img
-                      className="rounded-md w-full mb-4 object-cover"
+                      className="rounded-lg w-full mb-4 object-cover border border-[var(--color-primary-200)] shadow"
                       {...props}
                     />
                   ),
                   ul: (props: any) => (
-                    <ul className="list-disc ml-6 mb-4" {...props} />
+                    <ul
+                      className="list-disc ml-6 mb-4 text-[var(--color-primary-900)]"
+                      {...props}
+                    />
                   ),
                   code: (props: any) => {
                     const { inline, children } = props;
                     if (inline) {
                       return (
-                        <code className="bg-gray-800 text-yellow-300 px-1 rounded">
+                        <code className="bg-[var(--color-primary-200)] text-[var(--color-primary-900)] px-1 rounded">
                           {children}
                         </code>
                       );
                     }
                     return (
-                      <pre className="bg-gray-900 text-sm rounded p-4 overflow-auto">
+                      <pre className="bg-[var(--color-primary-200)] text-[var(--color-primary-900)] text-sm rounded p-4 overflow-auto">
                         <code>{children}</code>
                       </pre>
                     );
@@ -152,47 +155,63 @@ const ProjectPage: FC<ProjectPageProps> = () => {
                 <img
                   src={bgImage}
                   alt={`${name} screenshot`}
-                  className="w-full rounded-lg shadow-md object-cover"
+                  className="w-full rounded-xl shadow-lg object-cover border border-[var(--color-primary-200)]"
                 />
               ) : (
-                <div className="rounded-lg bg-gray-100 p-6 text-center italic">
+                <div className="rounded-xl bg-[var(--color-primary-100)] p-6 text-center italic border border-[var(--color-primary-200)]">
                   No screenshot available
                 </div>
               )}
             </div>
 
-            <div className="bg-surface-700 p-4 rounded-md text-sm">
+            <div className="bg-[var(--color-primary-100)] p-4 rounded-xl text-sm border border-[var(--color-primary-200)] shadow">
               <div className="flex items-center gap-3 mb-3">
                 {repo.owner.avatar_url && (
                   <img
                     src={repo.owner.avatar_url}
                     alt="owner avatar"
-                    className="w-12 h-12 rounded-full"
+                    className="w-12 h-12 rounded-full border border-[var(--color-primary-200)]"
                   />
                 )}
                 <div>
-                  <div className="font-semibold">{repo.owner.login}</div>
-                  <div className="text-xs text-muted-400">Repository owner</div>
+                  <div className="font-semibold text-[var(--color-primary-900)]">
+                    {repo.owner.login}
+                  </div>
+                  <div className="text-xs text-[var(--color-primary-700)]">
+                    Repository owner
+                  </div>
                 </div>
               </div>
 
-              <h3 className="font-semibold mb-2">Repo info</h3>
+              <h3 className="font-semibold mb-2 text-[var(--color-primary-900)]">
+                Repo info
+              </h3>
               <dl className="grid grid-cols-2 gap-x-4 gap-y-2 text-xs">
                 <div>
-                  <dt className="text-muted-400">Created</dt>
-                  <dd>{new Date(repo.created_at).toDateString()}</dd>
+                  <dt className="text-[var(--color-primary-700)]">Created</dt>
+                  <dd className="text-[var(--color-primary-900)]">
+                    {new Date(repo.created_at).toDateString()}
+                  </dd>
                 </div>
                 <div>
-                  <dt className="text-muted-400">Updated</dt>
-                  <dd>{new Date(repo.updated_at).toDateString()}</dd>
+                  <dt className="text-[var(--color-primary-700)]">Updated</dt>
+                  <dd className="text-[var(--color-primary-900)]">
+                    {new Date(repo.updated_at).toDateString()}
+                  </dd>
                 </div>
                 <div>
-                  <dt className="text-muted-400">Language</dt>
-                  <dd>{repo.language ?? "-"}</dd>
+                  <dt className="text-[var(--color-primary-700)]">Language</dt>
+                  <dd className="text-[var(--color-primary-900)]">
+                    {repo.language ?? "-"}
+                  </dd>
                 </div>
                 <div>
-                  <dt className="text-muted-400">Visibility</dt>
-                  <dd>{repo.visibility ?? "-"}</dd>
+                  <dt className="text-[var(--color-primary-700)]">
+                    Visibility
+                  </dt>
+                  <dd className="text-[var(--color-primary-900)]">
+                    {repo.visibility ?? "-"}
+                  </dd>
                 </div>
               </dl>
             </div>
@@ -213,20 +232,20 @@ const ProjectPage: FC<ProjectPageProps> = () => {
 
     return (
       <main className="max-w-5xl mx-auto p-6">
-        <div className="grid gap-8 md:grid-cols-3 items-start">
+        <div className="grid gap-10 md:grid-cols-3 items-start">
           <div className="md:col-span-2">
-            <header className="mb-6">
-              <h1 className="text-4xl font-extrabold tracking-tight mb-2 text-primary-900">
+            <header className="mb-8 pb-4 border-b border-[var(--color-primary-200)]">
+              <h1 className="text-4xl font-extrabold tracking-tight mb-2 text-[var(--color-primary-900)]">
                 {repoResult.name}
               </h1>
-              <p className="text-sm text-gray-600">{`Owned by ${repoResult.owner.login}`}</p>
+              <p className="text-sm text-[var(--color-primary-700)]">{`Owned by ${repoResult.owner.login}`}</p>
 
               <div className="mt-4 flex gap-3">
                 <a
                   href={`https://github.com/${repoResult.owner.login}/${repoResult.name}`}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-2 py-2 px-3 bg-primary-600 text-white rounded-md shadow-sm hover:bg-primary-700"
+                  className="inline-flex items-center gap-2 py-2 px-3 bg-[var(--color-primary-600)] text-[var(--color-text-light)] rounded-md shadow hover:bg-[var(--color-primary-700)] transition"
                 >
                   README
                 </a>
@@ -234,15 +253,67 @@ const ProjectPage: FC<ProjectPageProps> = () => {
                   href={`https://github.com/${repoResult.owner.login}/${repoResult.name}`}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-2 py-2 px-3 border border-primary-600 text-primary-700 rounded-md hover:bg-primary-50"
+                  className="inline-flex items-center gap-2 py-2 px-3 border border-[var(--color-primary-600)] text-[var(--color-primary-700)] rounded-md hover:bg-[var(--color-primary-100)] transition"
                 >
                   Live site
                 </a>
               </div>
             </header>
 
-            <article className="prose max-w-none bg-white p-6 rounded-lg shadow-md text-primary-900">
-              <ReactMarkdown>{article ? article : ""}</ReactMarkdown>
+            <article className="prose max-w-none bg-[var(--color-primary-100)] p-6 rounded-xl shadow-lg text-[var(--color-primary-900)]">
+              <ReactMarkdown
+                components={{
+                  h1: ({ node, ...props }) => (
+                    <h1 className="text-3xl font-bold my-4" {...props} />
+                  ),
+                  h2: ({ node, ...props }) => (
+                    <h2 className="text-2xl font-semibold my-3" {...props} />
+                  ),
+                  p: (props: any) => (
+                    <p
+                      className="text-base leading-7 mb-4 text-[var(--color-primary-900)]"
+                      {...props}
+                    />
+                  ),
+                  a: (props: any) => (
+                    <a
+                      className="text-[var(--color-primary-700)] underline hover:text-[var(--color-primary-900)] transition"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      {...props}
+                    />
+                  ),
+                  img: (props: any) => (
+                    <img
+                      className="rounded-lg w-full mb-4 object-cover border border-[var(--color-primary-200)] shadow"
+                      {...props}
+                    />
+                  ),
+                  ul: (props: any) => (
+                    <ul
+                      className="list-disc ml-6 mb-4 text-[var(--color-primary-900)]"
+                      {...props}
+                    />
+                  ),
+                  code: (props: any) => {
+                    const { inline, children } = props;
+                    if (inline) {
+                      return (
+                        <code className="bg-[var(--color-primary-200)] text-[var(--color-primary-900)] px-1 rounded">
+                          {children}
+                        </code>
+                      );
+                    }
+                    return (
+                      <pre className="bg-[var(--color-primary-200)] text-[var(--color-primary-900)] text-sm rounded p-4 overflow-auto">
+                        <code>{children}</code>
+                      </pre>
+                    );
+                  },
+                }}
+              >
+                {article ? article : ""}
+              </ReactMarkdown>
             </article>
           </div>
 
@@ -252,47 +323,63 @@ const ProjectPage: FC<ProjectPageProps> = () => {
                 <img
                   src={usedBg}
                   alt={`${repoResult.name} screenshot`}
-                  className="w-full rounded-lg shadow-md object-cover"
+                  className="w-full rounded-xl shadow-lg object-cover border border-[var(--color-primary-200)]"
                 />
               ) : (
-                <div className="rounded-lg bg-surface-700 p-6 text-center italic">
+                <div className="rounded-xl bg-[var(--color-primary-100)] p-6 text-center italic border border-[var(--color-primary-200)]">
                   No screenshot available
                 </div>
               )}
             </div>
 
-            <div className="bg-surface-700 p-4 rounded-md text-sm">
+            <div className="bg-[var(--color-primary-100)] p-4 rounded-xl text-sm border border-[var(--color-primary-200)] shadow">
               <div className="flex items-center gap-3 mb-3">
                 {repoResult.owner.avatar_url && (
                   <img
                     src={repoResult.owner.avatar_url}
                     alt="owner avatar"
-                    className="w-12 h-12 rounded-full"
+                    className="w-12 h-12 rounded-full border border-[var(--color-primary-200)]"
                   />
                 )}
                 <div>
-                  <div className="font-semibold">{repoResult.owner.login}</div>
-                  <div className="text-xs text-muted-400">Repository owner</div>
+                  <div className="font-semibold text-[var(--color-primary-900)]">
+                    {repoResult.owner.login}
+                  </div>
+                  <div className="text-xs text-[var(--color-primary-700)]">
+                    Repository owner
+                  </div>
                 </div>
               </div>
 
-              <h3 className="font-semibold mb-2">Repo info</h3>
+              <h3 className="font-semibold mb-2 text-[var(--color-primary-900)]">
+                Repo info
+              </h3>
               <dl className="grid grid-cols-2 gap-x-4 gap-y-2 text-xs">
                 <div>
-                  <dt className="text-muted-400">Created</dt>
-                  <dd>{new Date(repoResult.created_at).toDateString()}</dd>
+                  <dt className="text-[var(--color-primary-700)]">Created</dt>
+                  <dd className="text-[var(--color-primary-900)]">
+                    {new Date(repoResult.created_at).toDateString()}
+                  </dd>
                 </div>
                 <div>
-                  <dt className="text-muted-400">Updated</dt>
-                  <dd>{new Date(repoResult.updated_at).toDateString()}</dd>
+                  <dt className="text-[var(--color-primary-700)]">Updated</dt>
+                  <dd className="text-[var(--color-primary-900)]">
+                    {new Date(repoResult.updated_at).toDateString()}
+                  </dd>
                 </div>
                 <div>
-                  <dt className="text-muted-400">Language</dt>
-                  <dd>{repoResult.language ?? "-"}</dd>
+                  <dt className="text-[var(--color-primary-700)]">Language</dt>
+                  <dd className="text-[var(--color-primary-900)]">
+                    {repoResult.language ?? "-"}
+                  </dd>
                 </div>
                 <div>
-                  <dt className="text-muted-400">Visibility</dt>
-                  <dd>{repoResult.visibility ?? "-"}</dd>
+                  <dt className="text-[var(--color-primary-700)]">
+                    Visibility
+                  </dt>
+                  <dd className="text-[var(--color-primary-900)]">
+                    {repoResult.visibility ?? "-"}
+                  </dd>
                 </div>
               </dl>
             </div>

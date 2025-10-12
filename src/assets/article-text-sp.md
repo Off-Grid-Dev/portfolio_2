@@ -1,15 +1,3 @@
-# Semester Project 2
-
-[🔗 Share/Copy Article Link](#) <!-- Replace # with your shareable URL -->
-
-![Screenshot of Semester Project 2](/Screenshot-semester-project.png)
-_Caption: Homepage of Semester Project 2 showcasing the dog social platform interface._
-
-**Live Site:** [Open Project](https://github.com/Off-Grid-Dev/SemesterProject2){:target="\_blank"}  
-**GitHub:** [README.md](https://github.com/Off-Grid-Dev/SemesterProject2/blob/main/README.md){:target="\_blank"}
-
----
-
 ## Project Overview
 
 Semester Project 2 is a full-stack React application built for Noroff’s curriculum, designed as a social platform for dog enthusiasts. Users can browse profiles, view details about individual dogs, and interact within a modern, responsive interface.
