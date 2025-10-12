@@ -16,7 +16,7 @@ const AppRoutes = () => {
 
 const App = () => {
   return (
-    <Router basename="/portfolio">
+    <Router basename="/">
       <ContextProvider>
         <Layout>
           <AppRoutes />
